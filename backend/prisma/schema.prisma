@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Athlete {
+  id_athlete       String @id @unique() @default(uuid())
+  name     String 
+  number   Int
+  height   Int
+  age      Int
+  position POSITION
+  team     String
+  category Category   @relation(fields: [id_athlete], references: [id_category])
+  @@map("athletes")
+}
+
+
+
+model Category {
+  id_category      String @id @unique @default(uuid())
+  classification CATEGORIES
+  id_team    String
+  genre    GENRE
+  athletes Athlete[]
+
+  @@map("category")
+}
+
+
+enum POSITION {
+   LEVANTADOR
+   PONTEIRO
+   OPOSTO
+   LIBERO
+   CENTRAL
+}
+
+enum CATEGORIES {
+   SUB_15 
+   SUB_17
+   SUB_19
+   SUB_21
+   ADULTO
+}
+
+enum GENRE {
+  FEM
+  MASC
+}
