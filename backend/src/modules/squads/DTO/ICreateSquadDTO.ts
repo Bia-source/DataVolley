@@ -4,7 +4,6 @@ export interface ICreateSquadDTO {
     classification: CATEGORIES;
     id_team: string;
     genre: GENRE;
-    athletes: IAthlete[]
 }
 
 interface IAthlete{

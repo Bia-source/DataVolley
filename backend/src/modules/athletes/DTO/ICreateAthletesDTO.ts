@@ -1,4 +1,4 @@
-import { POSITION } from "../../../shared/enuns";
+import { CATEGORIES, GENRE, POSITION } from "../../../shared/enuns";
 
 export interface ICreateAthleteDTO {
     name: string;
@@ -7,4 +7,5 @@ export interface ICreateAthleteDTO {
     age: number;  
     position: POSITION;
     team: string;
+    category: CATEGORIES;
 }
