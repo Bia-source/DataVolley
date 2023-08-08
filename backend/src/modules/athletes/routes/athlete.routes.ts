@@ -11,5 +11,7 @@ const getAthletesController = new GetAthletesController();
 athlete.post("/", createAthleteController.handle);
 athlete.get("/search_by_name_team", getAthletesController.getAthleteByNameTeamC);
 athlete.get("/search_by_id_athlete", getAthletesController.getAthleteByIdC);
+athlete.get("/search_by_name_athlete", getAthletesController.getAthleteByNameC);
+athlete.get("/search_athlete_by_category_id", getAthletesController.getAthletesByCategoryIdC);
 
 export {athlete}

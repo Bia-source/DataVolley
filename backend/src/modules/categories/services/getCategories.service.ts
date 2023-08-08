@@ -3,7 +3,7 @@ import { prisma } from "../../../database/connect";
 import { CATEGORIES } from "../../../shared/enuns";
 
 export class GetCategoriesService {
-    async byName(classification: CATEGORIES, id_team: string): Promise<Category | undefined> {
+    async byNameS(classification: CATEGORIES, id_team: string): Promise<Category | undefined> {
         try {
             const categories = await prisma.category.findFirst({
                 where: {
@@ -25,7 +25,7 @@ export class GetCategoriesService {
         }
     }
 
-    async byId(id_category: string): Promise<Category | undefined> {
+    async byIdS(id_category: string): Promise<Category | undefined> {
         try {
             const categories = await prisma.category.findFirst({
                 where: {
@@ -39,14 +39,14 @@ export class GetCategoriesService {
                     athletes: true
                 }
             });
-
+            
             if(categories) return categories;
         } catch (error) {
             throw error;
         }
     }
 
-    async byTeamId(id_team: string): Promise<Category[] | undefined>{
+    async byTeamIdS(id_team: string): Promise<Category[] | undefined>{
         try {
             const categories = prisma.category.findMany({
                 where: {

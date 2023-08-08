@@ -7,7 +7,7 @@ export class GetCategoriesController {
         try {
             const { classification, id_team } = req.body;
             const instanceService = new GetCategoriesService();
-            const category = await instanceService.byName(classification, id_team);
+            const category = await instanceService.byNameS(classification, id_team);
             return res.status(200).json({
                 category: category
             });
@@ -22,7 +22,7 @@ export class GetCategoriesController {
        try {
           const { id_category } = req.body;
           const instanceService = new GetCategoriesService();
-          const category = await instanceService.byId(id_category);
+          const category = await instanceService.byIdS(id_category);
           return res.status(200).json({
             category
           });
@@ -37,7 +37,7 @@ export class GetCategoriesController {
         try {
             const { id_team } = req.body;
             const instanceService = new GetCategoriesService();
-            const categories = await instanceService.byTeamId(id_team);
+            const categories = await instanceService.byTeamIdS(id_team);
             return res.status(200).json({
                 categories
             });
