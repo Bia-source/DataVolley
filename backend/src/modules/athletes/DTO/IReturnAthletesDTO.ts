@@ -26,19 +26,3 @@ export type IReturnGetAthletes = {
             genre: GENRE;
         } | null;
 }
-
-// athletes: {
-//     id_athlete: string;
-//     name: string;
-//     number: number;
-//     height: number;
-//     age: number;
-//     position: POSITION;
-//     team: string;
-//     category: (GetResult<{
-//         id_category: string;
-//         classification: CATEGORIES;
-//         id_team: string;
-//         genre: GENRE;
-//     }, unknown> & {}) | null;
-// }[]

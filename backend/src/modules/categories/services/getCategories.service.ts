@@ -46,7 +46,7 @@ export class GetCategoriesService {
         }
     }
 
-    async byTeam(id_team: string): Promise<Category[] | undefined>{
+    async byTeamId(id_team: string): Promise<Category[] | undefined>{
         try {
             const categories = prisma.category.findMany({
                 where: {
@@ -66,4 +66,25 @@ export class GetCategoriesService {
             throw error;
         }
     }
+
+    // async byTeamName(id_team: string): Promise<Category[] | undefined>{
+    //     try {
+    //         const categories = prisma.category.findMany({
+    //             where: {
+    //                 id_team,
+    //             },
+    //             select: {
+    //                 id_category: true,
+    //                 classification: true,
+    //                 id_team: true,
+    //                 genre: true,
+    //                 athletes: true
+    //             }
+    //         });
+
+    //         if(categories) return categories;
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
 }

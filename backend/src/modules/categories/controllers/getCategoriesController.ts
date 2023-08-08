@@ -37,7 +37,7 @@ export class GetCategoriesController {
         try {
             const { id_team } = req.body;
             const instanceService = new GetCategoriesService();
-            const categories = await instanceService.byTeam(id_team);
+            const categories = await instanceService.byTeamId(id_team);
             return res.status(200).json({
                 categories
             });
