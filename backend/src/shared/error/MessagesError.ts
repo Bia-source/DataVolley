@@ -1,5 +1,5 @@
 export enum MESSAGE_ERROR{
-    CREATE_USER = "Não foi possível criar um novo usuario, verifique as Informações.",
+    CREATE_CATEGORY = "Não foi possível criar uma nova categoria, verifique se foi inserido o genero e categoria correto.",
     // Errors of the category 
     VALIDATE_CATEGORY_NOT_FOUND = "Essa categoria não foi encontrada!",
     VALIDATE_CATEGORY_EXISTS = "Já existe essa categoria nesse time!",

@@ -23,7 +23,7 @@ export class GetAthletesController {
             })
         } catch (error) {
             return res.json({
-                message: error
+                 error
             });
         }
     }
@@ -38,7 +38,7 @@ export class GetAthletesController {
             });
         } catch (error) {
             return res.json({
-                message: error
+                 error
              });
         }
     }
@@ -54,7 +54,7 @@ export class GetAthletesController {
       } catch (error) {
         console.log(error);
         return res.json({
-            message: error
+             error
         });
       }
     }

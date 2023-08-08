@@ -24,7 +24,7 @@ export class GetAthletesService {
             });
 
             if(!athletes[0]?.id_athlete){
-                throw Error("Não existe nenhum atleta cadastrado")
+                throw new AppError(MESSAGE_ERROR.VALIDATE_WITHOUT_ATHLETES)
             }
             return athletes;
         } catch (error) {
@@ -51,7 +51,7 @@ export class GetAthletesService {
             });
 
             if(athlete === undefined || athlete === null){
-                throw Error("Não foi possivel completar essa solicitacao verifique os dados")
+                throw new AppError(MESSAGE_ERROR.VALIDATE_GET_ATHLETE_BY_ID_ERROR)
             }
             return athlete;
         } catch (error) {
@@ -78,7 +78,7 @@ export class GetAthletesService {
          });
 
          if(athlete === undefined || athlete === null){
-            throw Error("Não foi possivel completar essa solicitacao verifique os dados")
+            throw new AppError(MESSAGE_ERROR.VALIDATE_GET_ATHLETE_BY_NAME_ERROR)
         }
 
          return athlete;
@@ -109,8 +109,7 @@ export class GetAthletesService {
           });
           
           if(!athletes[0]?.id_athlete){
-            throw new AppError(MESSAGE_ERROR.CREATE_USER);
-            //throw Error("Não existe nenhum atleta cadastrado, verifique a categoria e o genero")
+            throw new AppError(MESSAGE_ERROR.VALIDATE_WITHOUT_ATHLETES + `nesta categoria`);
           }
           return athletes;
        } catch (error) {
