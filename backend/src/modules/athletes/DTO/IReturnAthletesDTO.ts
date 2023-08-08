@@ -26,3 +26,4 @@ export type IReturnGetAthletes = {
             genre: GENRE;
         } | null;
 }
+    
