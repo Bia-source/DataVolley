@@ -1,7 +1,8 @@
 import { prisma } from "../../../database/connect";
+import { IReturnGetAthletes } from "../DTO/IReturnAthletesDTO";
 
 export class GetAllAthletesService {
-    async execute() {
+    async execute(): Promise<IReturnGetAthletes[]> {
         try {
             const athletes = await prisma.athlete.findMany({
                 select: {

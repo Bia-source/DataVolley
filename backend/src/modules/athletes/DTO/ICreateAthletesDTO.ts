@@ -1,6 +1,7 @@
-import { CATEGORIES, GENRE, POSITION } from "../../../shared/enuns";
+import { GENRE } from "@prisma/client";
+import { CATEGORIES, POSITION } from "../../../shared/enuns";
 
-export interface ICreateAthleteDTO {
+export type ICreateAthleteDTO = {
     name: string;
     number: number;
     height: number;  
@@ -8,4 +9,5 @@ export interface ICreateAthleteDTO {
     position: POSITION;
     team: string;
     category: CATEGORIES;
+    genre: GENRE;
 }

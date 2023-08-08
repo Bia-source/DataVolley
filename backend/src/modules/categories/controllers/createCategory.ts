@@ -3,7 +3,7 @@ import { CreateCategoryService } from "../services/createCategory.service";
 
 
 export class CreateCategoryController {
-    async handle(req: Request, res: Response): Promise<any> {
+    async handle(req: Request, res: Response): Promise<Response> {
         try {
             const { classification, id_team, genre } = req.body;
             const instanceService = new CreateCategoryService();

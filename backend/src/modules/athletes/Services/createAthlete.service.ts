@@ -1,17 +1,18 @@
 import { prisma } from "../../../database/connect";
 import { ICreateAthleteDTO } from "../DTO/ICreateAthletesDTO";
-import { v4 as uuid } from "uuid";
+import { IReturnCreateAthlete } from "../DTO/IReturnAthletesDTO";
 
 type ICategory = {
   id_category: string;
 }
 
 export class CreateAthleteService {
-   async execute({ team, category, name, number, position, height, age }: ICreateAthleteDTO) {
+   async execute({ team, category, name, number, position, height, age, genre }: ICreateAthleteDTO): Promise<IReturnCreateAthlete> {
       try {
          const { id_category } = await prisma.category.findFirst({
             where: {
-               classification: category
+               classification: category,
+               genre
             },
             select: {
                id_category: true
@@ -22,6 +23,7 @@ export class CreateAthleteService {
             throw Error("Nao existe essa categoria");
          }
          
+
          const athleteRepository = await prisma.athlete.create({
             data: {
                name,
@@ -34,7 +36,7 @@ export class CreateAthleteService {
             }
          }
          );
-         return { athleteRepository };
+         return athleteRepository ;
       } catch (error) {
         throw error;
       }
