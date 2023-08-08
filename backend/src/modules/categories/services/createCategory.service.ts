@@ -1,4 +1,6 @@
 import { prisma } from "../../../database/connect";
+import { AppError } from "../../../shared/error/AppError";
+import { MESSAGE_ERROR } from "../../../shared/error/MessagesError";
 import { ICreateSquadDTO } from "../../squads/DTO/ICreateSquadDTO";
 import { IReturnCreateCategory } from "../DTO/IReturnCreateCategory";
 
@@ -13,7 +15,7 @@ export class CreateCategoryService {
             });
 
             if(alreadyyExistCategoryInTeam){
-               throw Error("Já existe essa categoria nesse time");
+               throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_EXISTS);
             }
 
             const categoryRepository = await prisma.category.create({

@@ -1,6 +1,8 @@
 import { Athlete, GENRE } from "@prisma/client";
 import { prisma } from "../../../database/connect";
 import { IReturnGetAthletes } from "../DTO/IReturnAthletesDTO";
+import { AppError } from "../../../shared/error/AppError";
+import { MESSAGE_ERROR } from "../../../shared/error/MessagesError";
 
 export class GetAthletesService {
     async getAthleteByNameTeamS(name_team: string): Promise<IReturnGetAthletes[]> {
@@ -107,7 +109,8 @@ export class GetAthletesService {
           });
           
           if(!athletes[0]?.id_athlete){
-            throw Error("Não existe nenhum atleta cadastrado, verifique a categoria e o genero")
+            throw new AppError(MESSAGE_ERROR.CREATE_USER);
+            //throw Error("Não existe nenhum atleta cadastrado, verifique a categoria e o genero")
           }
           return athletes;
        } catch (error) {

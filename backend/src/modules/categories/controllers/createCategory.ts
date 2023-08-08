@@ -10,7 +10,9 @@ export class CreateCategoryController {
             const category = await instanceService.execute({ classification, id_team, genre });
             return res.status(201).json({ category });
         } catch (error) {
-            throw error;
+            return res.json({
+                error
+            });
         }
     }
 }

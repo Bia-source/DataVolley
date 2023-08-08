@@ -9,7 +9,9 @@ export class CreateAthleteController {
         const newAthlete = await instanceService.execute({team, category, name, number, position,height, age, genre});
         return res.status(201).json({ novoAtleta: newAthlete });
       } catch (error) {
-        throw error;
+        return res.json({
+          error
+        });
       }
     }
 }

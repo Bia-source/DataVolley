@@ -1,4 +1,6 @@
 import { prisma } from "../../../database/connect";
+import { AppError } from "../../../shared/error/AppError";
+import { MESSAGE_ERROR } from "../../../shared/error/MessagesError";
 import { ICreateAthleteDTO } from "../DTO/ICreateAthletesDTO";
 import { IReturnCreateAthlete } from "../DTO/IReturnAthletesDTO";
 
@@ -20,9 +22,19 @@ export class CreateAthleteService {
          }) as ICategory;
          
          if (!id_category) {
-            throw Error("Nao existe essa categoria");
+            throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_DONT_EXISTS);
          }
          
+         const athleteAlreadyExist = await prisma.athlete.findFirst({
+            where: {
+               name,
+               id_category_athlete: id_category
+            }
+         });
+
+         if(athleteAlreadyExist){
+            throw new AppError(MESSAGE_ERROR.VALIDATE_ATHLETE_EXISTS);
+         }
 
          const athleteRepository = await prisma.athlete.create({
             data: {
