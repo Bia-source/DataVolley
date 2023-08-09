@@ -5,9 +5,9 @@ import { AppError } from "../../../shared/error/AppError";
 import { MESSAGE_ERROR } from "../../../shared/error/MessagesError";
 
 export class GetCategoriesService {
-    async byNameS(classification: CATEGORIES, id_team: string): Promise<Category> {
+    async byNameS(classification: CATEGORIES, id_team: string): Promise<Category[]> {
         try {
-            const categories = await prisma.category.findFirst({
+            const categories = await prisma.category.findMany({
                 where: {
                     classification,
                     id_team
@@ -24,6 +24,7 @@ export class GetCategoriesService {
             if(!categories){
                 throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_NOT_FOUND + ` Verifique a categoria e numero de identificacao do time`)
             }
+
             return categories;
         } catch (error) {
             throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_NOT_FOUND + ` Verifique a categoria e numero de identificacao do time`);          
@@ -32,7 +33,7 @@ export class GetCategoriesService {
 
     async byIdS(id_category: string): Promise<Category> {
         try {
-            const categories = await prisma.category.findFirst({
+            const category = await prisma.category.findFirst({
                 where: {
                     id_category
                 },
@@ -44,11 +45,11 @@ export class GetCategoriesService {
                     athletes: true
                 }
             });
-            if(!categories){
+            if(!category){
                 throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_NOT_FOUND + ` Verifique o numero de identificacao da categoria`)
             }
             
-            return categories;
+            return category;
         } catch (error) {
             throw error;
         }
