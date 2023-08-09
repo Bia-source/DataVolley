@@ -13,7 +13,7 @@ export class GetCategoriesController {
             });
         } catch (error) {
             return res.status(400).json({
-                message: error
+                 error
             });
         }
     }
@@ -28,7 +28,7 @@ export class GetCategoriesController {
           });
        } catch (error) {
           return res.status(400).json({
-            message: error
+             error
           });
        }
     }
@@ -43,7 +43,7 @@ export class GetCategoriesController {
             });
         } catch (error) {
             return res.status(400).json({
-                message: error
+                 error
             });
         }
     }

@@ -1,9 +1,11 @@
 import { Category } from "@prisma/client";
 import { prisma } from "../../../database/connect";
 import { CATEGORIES } from "../../../shared/enuns";
+import { AppError } from "../../../shared/error/AppError";
+import { MESSAGE_ERROR } from "../../../shared/error/MessagesError";
 
 export class GetCategoriesService {
-    async byNameS(classification: CATEGORIES, id_team: string): Promise<Category | undefined> {
+    async byNameS(classification: CATEGORIES, id_team: string): Promise<Category> {
         try {
             const categories = await prisma.category.findFirst({
                 where: {
@@ -19,13 +21,16 @@ export class GetCategoriesService {
                 }
             });
 
-            if(categories) return categories;
+            if(!categories){
+                throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_NOT_FOUND + ` Verifique a categoria e numero de identificacao do time`)
+            }
+            return categories;
         } catch (error) {
-            throw error;
+            throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_NOT_FOUND + ` Verifique a categoria e numero de identificacao do time`);          
         }
     }
 
-    async byIdS(id_category: string): Promise<Category | undefined> {
+    async byIdS(id_category: string): Promise<Category> {
         try {
             const categories = await prisma.category.findFirst({
                 where: {
@@ -39,16 +44,19 @@ export class GetCategoriesService {
                     athletes: true
                 }
             });
+            if(!categories){
+                throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_NOT_FOUND + ` Verifique o numero de identificacao da categoria`)
+            }
             
-            if(categories) return categories;
+            return categories;
         } catch (error) {
             throw error;
         }
     }
 
-    async byTeamIdS(id_team: string): Promise<Category[] | undefined>{
+    async byTeamIdS(id_team: string): Promise<Category[]>{
         try {
-            const categories = prisma.category.findMany({
+            const categories = await prisma.category.findMany({
                 where: {
                     id_team
                 },
@@ -61,13 +69,17 @@ export class GetCategoriesService {
                 }
             });
 
-            if(categories) return categories;
+            console.log(categories);
+            if(!categories[0]?.athletes){
+                throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_NOT_FOUND + ` Verifique o numero de identificacao do time`)
+            }
+            return categories;
         } catch (error) {
             throw error;
         }
     }
 
-    // async byTeamName(id_team: string): Promise<Category[] | undefined>{
+    // async byTeamName(id_team: string): Promise<Category[]>{
     //     try {
     //         const categories = prisma.category.findMany({
     //             where: {
