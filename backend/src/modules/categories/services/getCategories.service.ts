@@ -70,7 +70,6 @@ export class GetCategoriesService {
                 }
             });
 
-            console.log(categories);
             if(!categories[0]?.athletes){
                 throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_NOT_FOUND + ` Verifique o numero de identificacao do time`)
             }

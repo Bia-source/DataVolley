@@ -52,7 +52,6 @@ export class GetAthletesController {
             athletes
          });
       } catch (error) {
-        console.log(error);
         return res.json({
              error
         });
