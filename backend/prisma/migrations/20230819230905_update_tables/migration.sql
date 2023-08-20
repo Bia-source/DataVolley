@@ -16,6 +16,8 @@ CREATE TABLE "athletes" (
     "age" INTEGER NOT NULL,
     "position" "POSITION" NOT NULL,
     "team" TEXT NOT NULL,
+    "id_category_athlete" TEXT,
+    "categoryId_category" TEXT NOT NULL,
 
     CONSTRAINT "athletes_pkey" PRIMARY KEY ("id_athlete")
 );
@@ -26,15 +28,25 @@ CREATE TABLE "category" (
     "classification" "CATEGORIES" NOT NULL,
     "id_team" TEXT NOT NULL,
     "genre" "GENRE" NOT NULL,
+    "id_athletes" TEXT[],
 
     CONSTRAINT "category_pkey" PRIMARY KEY ("id_category")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "athletes_id_athlete_key" ON "athletes"("id_athlete");
+-- CreateTable
+CREATE TABLE "_AthleteToCategory" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
 
 -- CreateIndex
-CREATE UNIQUE INDEX "category_id_category_key" ON "category"("id_category");
+CREATE UNIQUE INDEX "_AthleteToCategory_AB_unique" ON "_AthleteToCategory"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_AthleteToCategory_B_index" ON "_AthleteToCategory"("B");
 
 -- AddForeignKey
-ALTER TABLE "athletes" ADD CONSTRAINT "athletes_id_athlete_fkey" FOREIGN KEY ("id_athlete") REFERENCES "category"("id_category") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "_AthleteToCategory" ADD CONSTRAINT "_AthleteToCategory_A_fkey" FOREIGN KEY ("A") REFERENCES "athletes"("id_athlete") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_AthleteToCategory" ADD CONSTRAINT "_AthleteToCategory_B_fkey" FOREIGN KEY ("B") REFERENCES "category"("id_category") ON DELETE CASCADE ON UPDATE CASCADE;

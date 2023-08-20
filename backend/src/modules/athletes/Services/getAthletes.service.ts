@@ -19,7 +19,7 @@ export class GetAthletesService {
                     age: true,
                     position: true,
                     team: true,
-                    category: true
+                    categories: true
                 }
             });
 
@@ -46,7 +46,7 @@ export class GetAthletesService {
                     age: true,
                     position: true,
                     team: true,
-                    category: true
+                    categories: true
                 }
             });
 
@@ -73,7 +73,7 @@ export class GetAthletesService {
                     age: true,
                     position: true,
                     team: true,
-                    category: true
+                    categories: true
                 }
             });
 
@@ -91,10 +91,7 @@ export class GetAthletesService {
         try {
             const athletes = await prisma.athlete.findMany({
                 where: {
-                    category: {
-                        id_category,
-                        genre
-                    }
+                    id_category_athlete: id_category,
                 },
                 select: {
                     id_athlete: true,
@@ -104,7 +101,7 @@ export class GetAthletesService {
                     age: true,
                     position: true,
                     team: true,
-                    category: true
+                    categories: true
                 }
             });
 

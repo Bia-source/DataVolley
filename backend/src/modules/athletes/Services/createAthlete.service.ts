@@ -1,11 +1,13 @@
+import { Console } from "console";
 import { prisma } from "../../../database/connect";
 import { AppError } from "../../../shared/error/AppError";
 import { MESSAGE_ERROR } from "../../../shared/error/MessagesError";
 import { ICreateAthleteDTO } from "../DTO/ICreateAthletesDTO";
 import { IReturnCreateAthlete } from "../DTO/IReturnAthletesDTO";
+import { GENRE, POSITION } from "@prisma/client";
 
 type ICategory = {
-  id_category: string;
+   id_category: string;
 }
 
 export class CreateAthleteService {
@@ -20,11 +22,11 @@ export class CreateAthleteService {
                id_category: true
             }
          }) as ICategory;
-         
+
          if (!id_category) {
             throw new AppError(MESSAGE_ERROR.VALIDATE_CATEGORY_DONT_EXISTS);
          }
-         
+
          const athleteAlreadyExist = await prisma.athlete.findFirst({
             where: {
                name,
@@ -32,7 +34,18 @@ export class CreateAthleteService {
             }
          });
 
-         if(athleteAlreadyExist){
+         if (athleteAlreadyExist) {
+            throw new AppError(MESSAGE_ERROR.VALIDATE_ATHLETE_EXISTS);
+         }
+
+         const categoryS = await prisma.category.findFirst({
+            where: {
+               classification: category,
+               genre
+            }
+         })
+
+         if (!categoryS) {
             throw new AppError(MESSAGE_ERROR.VALIDATE_ATHLETE_EXISTS);
          }
 
@@ -40,17 +53,34 @@ export class CreateAthleteService {
             data: {
                name,
                number,
+               age,
                position,
                height,
-               age,
                team,
-               id_category_athlete: id_category
+               id_category_athlete: id_category,
+               categories: {
+                  connect: {
+                     id_category
+                  }
+               }
             }
-         }
-         );
-         return athleteRepository ;
+         });
+
+         await prisma.category.update({
+            where: {
+               id_category: id_category
+
+            },
+            data: {
+               id_athletes: {
+                  push: athleteRepository.id_athlete
+               }
+            }
+         });
+
+         return athleteRepository;
       } catch (error) {
-        throw error;
+         throw error;
       }
    }
 }

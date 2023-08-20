@@ -11,15 +11,15 @@ datasource db {
 }
 
 model Athlete {
-  id_athlete  String    @id @default(uuid())
-  name        String
-  number      Int
-  height      Int
-  age         Int
-  position    POSITION
-  team        String
+  id_athlete          String   @id @default(uuid())
+  name                String
+  number              Int
+  height              Int
+  age                 Int
+  position            POSITION
+  team                String
   id_category_athlete String?
-  category    Category? @relation(fields: [id_category_athlete], references: [id_category])
+  categories          Category[]
 
   @@map("athletes")
 }
@@ -29,6 +29,7 @@ model Category {
   classification CATEGORIES
   id_team        String
   genre          GENRE
+  id_athletes    String[]
   athletes       Athlete[]
 
   @@map("category")

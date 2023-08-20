@@ -7,10 +7,12 @@ import { IReturnCreateCategory } from "../DTO/IReturnCreateCategory";
 export class CreateCategoryService {
     async execute({ classification, id_team, genre }: ICreateSquadDTO): Promise<IReturnCreateCategory> {
         try {
+            
             const alreadyyExistCategoryInTeam = await prisma.category.findFirst({
                 where: {
                     id_team,
-                    classification
+                    classification,
+                    genre
                 }
             });
 

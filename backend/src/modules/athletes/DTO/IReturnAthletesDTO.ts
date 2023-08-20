@@ -19,11 +19,11 @@ export type IReturnGetAthletes = {
         age: number;
         position: POSITION;
         team: string;
-        category: {
+        categories: {
             id_category: string;
             classification: CATEGORIES;
             id_team: string;
             genre: GENRE;
-        } | null;
+        }[];
 }
     
