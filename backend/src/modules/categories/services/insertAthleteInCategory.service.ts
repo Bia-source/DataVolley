@@ -41,6 +41,10 @@ export class InsertAthleteCategoryService {
                 }
             }) as ITypeCategory;
 
+            if(athletes.find((res)=> res.id_athlete === id_athlete)){
+                throw new AppError("Este atleta já foi cadastrado nessa categoria!");
+            }
+
             if(!id_category){
                 throw new AppError("Categoria nao encontrado");
             }
