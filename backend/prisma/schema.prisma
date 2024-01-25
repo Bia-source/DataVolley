@@ -11,16 +11,18 @@ datasource db {
 }
 
 model Athlete {
-  id_athlete          String     @id @default(uuid())
+  id_athlete          String        @id @default(uuid())
   name                String
   number              Int
   height              Int
   age                 Int
   position            POSITION
-  team                String
   id_category_athlete String?
   categories          Category[]
-  Squads              Squads[]
+  squads              Squads[]
+  id_team             String
+  Team                Team          @relation(fields: [id_team], references: [id_team])
+  emplacement         Emplacement[]
 
   @@map("athletes")
 }
@@ -29,6 +31,7 @@ model Category {
   id_category    String     @id @default(uuid())
   classification CATEGORIES
   id_team        String
+  team           Team       @relation(fields: [id_team], references: [id_team])
   genre          GENRE
   id_athletes    String[]
   athletes       Athlete[]
@@ -37,11 +40,102 @@ model Category {
 }
 
 model Squads {
-  id_squad       String     @id @default(uuid())
+  id_squad       String        @id @default(uuid())
   classification CATEGORIES
-  id_team        String
   genre          String
   athletes       Athlete[]
+  Team           Team          @relation(fields: [id_team], references: [id_team])
+  id_team        String
+  set            Set[]
+  game           Game[]
+  emplacement    Emplacement[]
+
+  @@map("squads")
+}
+
+model Team {
+  id_team  String     @id @default(uuid())
+  name     String     @unique
+  id_adm   String
+  games    String
+  squads   Squads[]
+  athletes Athlete[]
+  category Category[]
+  game     Game[]
+
+  @@map("team")
+}
+
+model Set {
+  id_set              String        @id @default(uuid())
+  id_first_squad      String
+  id_second_squad     String
+  squads              Squads        @relation(fields: [id_first_squad], references: [id_squad])
+  set_number          Int
+  id_game             String
+  game                Game          @relation(fields: [id_game], references: [id_game])
+  points_first_squad  Int
+  points_second_squad Int
+  created_at          DateTime
+  end_at              DateTime
+  emplacement         Emplacement[]
+
+  @@map("set")
+}
+
+model Emplacement {
+  id_emplacement String      @id @default(uuid())
+  stars          STARS
+  id_athlete     String
+  athlete        Athlete     @relation(fields: [id_athlete], references: [id_athlete])
+  type_pass      TYPE_PASS?
+  type_point     TYPE_POINT?
+  zone           ZONE?
+  id_squad       String
+  squad          Squads      @relation(fields: [id_squad], references: [id_squad])
+  id_set         String
+  set            Set         @relation(fields: [id_set], references: [id_set])
+}
+
+model Game {
+  id_game        String @id @default(uuid())
+  numberSets     Int
+  id_winner      String
+  winner         Squads @relation(fields: [id_winner], references: [id_squad])
+  set            Set[]
+  id_first_team  String
+  id_second_team String
+  team           Team   @relation(fields: [id_first_team], references: [id_team])
+
+  @@map("game")
+}
+
+enum STARS {
+  A
+  B
+  C
+  D
+}
+
+enum ZONE {
+  PARALELA
+  PARAGONAL
+  DIAGONAL_LONGA
+  DIAGONAL_CURTA
+}
+
+enum TYPE_POINT {
+  LARGADA
+  ATTACK
+  BLOCK
+  ACE
+  OPPONENT_ERROR
+}
+
+enum TYPE_PASS {
+  SERVE
+  LARGADA
+  DEFENSE
 }
 
 enum POSITION {
