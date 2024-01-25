@@ -7,7 +7,7 @@ export type IReturnCreateAthlete = {
        height: number;
        age: number;
        position: POSITION;
-       team: string;
+       id_team: string;
        id_category_athlete: string | null;
 }
 
@@ -18,7 +18,7 @@ export type IReturnGetAthletes = {
         height: number;
         age: number;
         position: POSITION;
-        team: string;
+        id_team: string;
         categories: {
             id_category: string;
             classification: CATEGORIES;

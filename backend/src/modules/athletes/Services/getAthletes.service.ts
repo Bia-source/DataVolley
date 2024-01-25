@@ -4,12 +4,21 @@ import { IReturnGetAthletes } from "../DTO/IReturnAthletesDTO";
 import { AppError } from "../../../shared/error/AppError";
 import { MESSAGE_ERROR } from "../../../shared/error/MessagesError";
 
+type ReturnTeam = {
+    id_team: string;
+}
 export class GetAthletesService {
     async getAthleteByNameTeamS(name_team: string): Promise<IReturnGetAthletes[]> {
         try {
+            const { id_team } = await prisma.team.findFirst({
+                where: {
+                    name: name_team
+                }
+            }) as ReturnTeam;
+
             const athletes = await prisma.athlete.findMany({
                 where: {
-                    team: name_team
+                    id_team
                 },
                 select: {
                     id_athlete: true,
@@ -18,7 +27,7 @@ export class GetAthletesService {
                     height: true,
                     age: true,
                     position: true,
-                    team: true,
+                    id_team: true,
                     categories: true
                 }
             });
@@ -45,7 +54,7 @@ export class GetAthletesService {
                     height: true,
                     age: true,
                     position: true,
-                    team: true,
+                    id_team: true,
                     categories: true
                 }
             });
@@ -72,7 +81,7 @@ export class GetAthletesService {
                     height: true,
                     age: true,
                     position: true,
-                    team: true,
+                    id_team: true,
                     categories: true
                 }
             });
@@ -100,7 +109,7 @@ export class GetAthletesService {
                     height: true,
                     age: true,
                     position: true,
-                    team: true,
+                    id_team: true,
                     categories: true
                 }
             });

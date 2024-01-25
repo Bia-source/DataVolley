@@ -1,5 +1,5 @@
-import { GENRE } from "@prisma/client";
-import { CATEGORIES, POSITION } from "../../../shared/enuns";
+import { GENRE, CATEGORIES } from "@prisma/client";
+import { POSITION } from "../../../shared/enuns";
 
 export type ICreateAthleteDTO = {
     name: string;

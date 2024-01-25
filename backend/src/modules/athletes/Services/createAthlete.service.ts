@@ -1,4 +1,3 @@
-import { Console } from "console";
 import { prisma } from "../../../database/connect";
 import { AppError } from "../../../shared/error/AppError";
 import { MESSAGE_ERROR } from "../../../shared/error/MessagesError";
@@ -55,7 +54,7 @@ export class CreateAthleteService {
                age,
                position,
                height,
-               team,
+               id_team: team,
                id_category_athlete: id_category,
                categories: {
                   connect: {

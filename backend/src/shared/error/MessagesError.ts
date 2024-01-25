@@ -1,4 +1,7 @@
 export enum MESSAGE_ERROR{
+    // Errors of the team
+    VALIDATE_NAME_TEAM_EXISTS = "Já existe um time com esse nome, tente outro!",
+
     CREATE_CATEGORY = "Não foi possível criar uma nova categoria, verifique se foi inserido o genero e categoria correto.",
     // Errors of the category 
     VALIDATE_CATEGORY_NOT_FOUND = "Essa categoria não foi encontrada!",

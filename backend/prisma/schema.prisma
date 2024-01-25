@@ -54,14 +54,13 @@ model Squads {
 }
 
 model Team {
-  id_team  String     @id @default(uuid())
-  name     String     @unique
-  id_adm   String
-  games    String
-  squads   Squads[]
-  athletes Athlete[]
-  category Category[]
-  game     Game[]
+  id_team   String     @id @default(uuid())
+  name      String     @unique
+  id_adm    String
+  squads    Squads[]
+  athletes  Athlete[]
+  categorys Category[]
+  games     Game[]
 
   @@map("team")
 }
