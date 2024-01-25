@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Athlete {
-  id_athlete          String   @id @default(uuid())
+  id_athlete          String     @id @default(uuid())
   name                String
   number              Int
   height              Int
@@ -20,6 +20,7 @@ model Athlete {
   team                String
   id_category_athlete String?
   categories          Category[]
+  Squads              Squads[]
 
   @@map("athletes")
 }
@@ -33,6 +34,14 @@ model Category {
   athletes       Athlete[]
 
   @@map("category")
+}
+
+model Squads {
+  id_squad       String     @id @default(uuid())
+  classification CATEGORIES
+  id_team        String
+  genre          String
+  athletes       Athlete[]
 }
 
 enum POSITION {

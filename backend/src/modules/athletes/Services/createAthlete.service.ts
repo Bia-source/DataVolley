@@ -4,7 +4,6 @@ import { AppError } from "../../../shared/error/AppError";
 import { MESSAGE_ERROR } from "../../../shared/error/MessagesError";
 import { ICreateAthleteDTO } from "../DTO/ICreateAthletesDTO";
 import { IReturnCreateAthlete } from "../DTO/IReturnAthletesDTO";
-import { GENRE, POSITION } from "@prisma/client";
 
 type ICategory = {
    id_category: string;
