@@ -1,7 +1,7 @@
 import { CATEGORIES, GENRE, POSITION } from "../../../shared/enuns";
 
 export type ICreateSquadDTO = {
-    classification: CATEGORIES;
+    id_category: string;
     id_team: string;
     genre: GENRE;
 }

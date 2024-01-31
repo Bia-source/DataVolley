@@ -21,7 +21,7 @@ model Athlete {
   categories          Category[]
   squads              Squads[]
   id_team             String
-  Team                Team          @relation(fields: [id_team], references: [id_team])
+  team                Team          @relation(fields: [id_team], references: [id_team])
   emplacement         Emplacement[]
 
   @@map("athletes")
@@ -35,20 +35,22 @@ model Category {
   genre          GENRE
   id_athletes    String[]
   athletes       Athlete[]
+  squads         Squads[]
 
   @@map("category")
 }
 
 model Squads {
-  id_squad       String        @id @default(uuid())
-  classification CATEGORIES
-  genre          String
-  athletes       Athlete[]
-  Team           Team          @relation(fields: [id_team], references: [id_team])
-  id_team        String
-  set            Set[]
-  game           Game[]
-  emplacement    Emplacement[]
+  id_squad    String        @id @default(uuid())
+  id_category String
+  category    Category      @relation(fields: [id_category], references: [id_category])
+  genre       String
+  athletes    Athlete[]
+  team        Team          @relation(fields: [id_team], references: [id_team])
+  id_team     String
+  set         Set[]
+  game        Game[]
+  emplacement Emplacement[]
 
   @@map("squads")
 }
@@ -94,17 +96,21 @@ model Emplacement {
   squad          Squads      @relation(fields: [id_squad], references: [id_squad])
   id_set         String
   set            Set         @relation(fields: [id_set], references: [id_set])
+
+  @@map("emplacement")
 }
 
 model Game {
-  id_game        String @id @default(uuid())
-  numberSets     Int
-  id_winner      String
-  winner         Squads @relation(fields: [id_winner], references: [id_squad])
-  set            Set[]
-  id_first_team  String
-  id_second_team String
-  team           Team   @relation(fields: [id_first_team], references: [id_team])
+  id_game          String  @id @default(uuid())
+  numberSets       Int
+  id_winner        String?
+  set              Set[]
+  id_first_team    String
+  id_second_team   String
+  name_second_team String
+  team             Team    @relation(fields: [id_first_team], references: [id_team])
+  Squads           Squads? @relation(fields: [squadsId_squad], references: [id_squad])
+  squadsId_squad   String?
 
   @@map("game")
 }
