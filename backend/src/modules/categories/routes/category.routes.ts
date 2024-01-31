@@ -11,6 +11,7 @@ const getCategoryController = new GetCategoriesController();
 const updateListAthleteCategory = new InsertAthleteCategoryController();
 
 category.post("/", createCategoryController.handle);
+category.get("/", getCategoryController.getAllCategoriesC);
 category.get("/search_by_team", getCategoryController.getCategoriesByTeam);
 category.get("/search_by_name", getCategoryController.getCategoryByName);
 category.get("/search_by_id", getCategoryController.getCategoryById);

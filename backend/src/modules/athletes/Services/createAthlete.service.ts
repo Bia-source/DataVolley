@@ -27,7 +27,7 @@ export class CreateAthleteService {
 
          const athleteAlreadyExist = await prisma.athlete.findFirst({
             where: {
-               name,
+               name: name.toLocaleLowerCase(),
                id_category_athlete: id_category
             }
          });
@@ -49,7 +49,7 @@ export class CreateAthleteService {
 
          const athleteRepository = await prisma.athlete.create({
             data: {
-               name,
+               name: name.toLocaleLowerCase(),
                number,
                age,
                position,

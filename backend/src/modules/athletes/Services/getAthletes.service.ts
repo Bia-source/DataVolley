@@ -12,7 +12,7 @@ export class GetAthletesService {
         try {
             const { id_team } = await prisma.team.findFirst({
                 where: {
-                    name: name_team
+                    name: name_team.toLocaleLowerCase()
                 }
             }) as ReturnTeam;
 
@@ -72,7 +72,7 @@ export class GetAthletesService {
         try {
             const athlete = await prisma.athlete.findFirst({
                 where: {
-                    name: name_athlete
+                    name: name_athlete.toLocaleLowerCase()
                 },
                 select: {
                     id_athlete: true,

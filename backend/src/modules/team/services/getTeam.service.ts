@@ -22,7 +22,7 @@ export class GetTeamService{
 
    async getTeamByName(name: string): Promise<Team>{
       try {
-         const team = await prisma.team.findFirst({ where: { name }})
+         const team = await prisma.team.findFirst({ where: { name: name.toLocaleLowerCase() }})
          if(!team){
             throw new AppError(MESSAGE_ERROR.TEAM_NOT_FOUND)
          }

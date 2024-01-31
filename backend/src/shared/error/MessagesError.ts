@@ -12,6 +12,7 @@ export enum MESSAGE_ERROR{
     VALIDATE_CATEGORY_NOT_FOUND = "Essa categoria não foi encontrada!",
     VALIDATE_CATEGORY_EXISTS = "Já existe essa categoria nesse time!",
     VALIDATE_CATEGORY_DONT_EXISTS = "Essa categoria não existe!",
+    CATEGORIES_DONT_EXISTS_TEAM = "Ainda nao existe nenhum registro de categoria!",
 
     // Errors of the athlete
     VALIDATE_WITHOUT_ATHLETES = "Não existe nenhum atleta cadastrado!",

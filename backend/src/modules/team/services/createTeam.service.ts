@@ -18,7 +18,7 @@ export class CreateTeamService {
     
             const team = await prisma.team.create({
                 data: {
-                    name,
+                    name: name.toLocaleLowerCase(),
                     id_adm
                 },
                 select: {
